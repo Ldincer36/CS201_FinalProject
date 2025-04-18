@@ -1,0 +1,59 @@
+public static class TaxiTrip {
+ private String pickupDatetime;
+ private String dropoffDatetime;
+ private int passengerCount;
+ private double tripDistance;
+ private double fareAmount;
+ private String paymentType;
+ private int pickupLocationId;
+ private int dropoffLocationId;
+ private double tipAmount;
+ private double totalAmount;
+ 
+ // Constructor
+ public TaxiTrip(String pickupDatetime, String dropoffDatetime,
+ int passengerCount, double tripDistance, double
+ fareAmount, String paymentType,
+ int pickupLocationId, int dropoffLocationId,
+ double tipAmount, double totalAmount) {
+ this.pickupDatetime = pickupDatetime;
+ this.dropoffDatetime = dropoffDatetime;
+ this.passengerCount = passengerCount;
+ this.tripDistance = tripDistance;
+ this.fareAmount = fareAmount;
+ this.paymentType = paymentType;
+ this.pickupLocationId = pickupLocationId;
+ this.dropoffLocationId = dropoffLocationId;
+ this.tipAmount = tipAmount;
+ this.totalAmount = totalAmount;
+ }
+ 
+ // Getters
+ public String getPickupDatetime() { return pickupDatetime; }
+ public String getDropoffDatetime() { return dropoffDatetime; }
+ public int getPassengerCount() { return passengerCount; }
+ public double getTripDistance() { return tripDistance; }
+ public double getFareAmount() { return fareAmount; }
+ public String getPaymentType() { return paymentType; }
+ public int getPickupLocationId() { return pickupLocationId; }
+ public int getDropoffLocationId() { return dropoffLocationId; }
+ public double getTipAmount() { return tipAmount; }
+ public double getTotalAmount() { return totalAmount; }
+ 
+ @Override
+ public String toString() {
+ return "TaxiTrip{" +
+ "pickupDatetime='" + pickupDatetime + '\'' +
+ ", dropoffDatetime='" + dropoffDatetime + '\'' +
+ ", passengerCount=" + passengerCount +
+ ", tripDistance=" + tripDistance +
+ ", fareAmount=" + fareAmount +
+ ", paymentType='" + paymentType + '\'' +
+ ", pickupLocationId=" + pickupLocationId +
+ ", dropoffLocationId=" + dropoffLocationId +
+ ", tipAmount=" + tipAmount +
+ ", totalAmount=" + totalAmount +
+ '}';
+ }
+ }
+ 
