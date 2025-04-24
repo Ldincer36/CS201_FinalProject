@@ -22,3 +22,7 @@ For the time complexity here, it would be O(log n + k). In a TreeMap, most opera
 within the range, this would be O(k). Since we don't know for how many years, we can't determine which is more dominant. However, in such a large dataset, it is 
 much more likely that k is relatively smaller compared to n, so we know that using a TreeMap implementation is much better (especially considering the size of 
 our dataset).
+
+A limitation is that TreeMap can take up higher memory overhead, and compared to a HashMap with O(1) or constant time operations, it's relatively slow. Duplicates 
+currently aren't allowed, so if we wanted to see how many times, it could be a bit problematic. A potential improvement is storing my variables in a new class 
+instead of as Strings.
