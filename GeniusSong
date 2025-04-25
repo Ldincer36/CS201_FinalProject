@@ -1,44 +1,41 @@
-public static class TaxiTrip {
- private String pickupDatetime;
- private String dropoffDatetime;
- private int passengerCount;
- private double tripDistance;
- private double fareAmount;
- private String paymentType;
- private int pickupLocationId;
- private int dropoffLocationId;
- private double tipAmount;
- private double totalAmount;
+public static class GeniusSong {
+ private String title;
+ private String tag;
+ private String artist;
+ private int year;
+ private int views;
+ private String features;
+ private String lyrics;
+ private int id;
+ private String language_cld3;
+ private String language_ft;
  
  // Constructor
- public TaxiTrip(String pickupDatetime, String dropoffDatetime,
- int passengerCount, double tripDistance, double
- fareAmount, String paymentType,
- int pickupLocationId, int dropoffLocationId,
- double tipAmount, double totalAmount) {
- this.pickupDatetime = pickupDatetime;
- this.dropoffDatetime = dropoffDatetime;
- this.passengerCount = passengerCount;
- this.tripDistance = tripDistance;
- this.fareAmount = fareAmount;
- this.paymentType = paymentType;
- this.pickupLocationId = pickupLocationId;
- this.dropoffLocationId = dropoffLocationId;
- this.tipAmount = tipAmount;
- this.totalAmount = totalAmount;
+ public GeniusSong(String title, String tag, String artist, int year, int views,
+ String features, String lyrics, int id, String language_cld3, String language_ft) {
+ this.title = title;
+ this.tag = tag;
+ this.year = year;
+ this.views = views;
+ this.features = features;
+ this.lyrics = lyrics;
+ this.id = id;
+ this.language_cld3 = language_cld3;
+ this.language_ft = language_ft;
+ 
  }
  
  // Getters
- public String getPickupDatetime() { return pickupDatetime; }
- public String getDropoffDatetime() { return dropoffDatetime; }
- public int getPassengerCount() { return passengerCount; }
- public double getTripDistance() { return tripDistance; }
- public double getFareAmount() { return fareAmount; }
- public String getPaymentType() { return paymentType; }
- public int getPickupLocationId() { return pickupLocationId; }
- public int getDropoffLocationId() { return dropoffLocationId; }
- public double getTipAmount() { return tipAmount; }
- public double getTotalAmount() { return totalAmount; }
+ public String getTitle() { return title; }
+ public String getTag() { return tag; }
+ public int getYear() { return year; }
+ public double getViews() { return views; }
+ public double getFeatures() { return features; }
+ public String getLyrics() { return lyrics; }
+ public int getId() { return id; }
+ public int getLanguageCld3() { return language_cld3; }
+ public double getLanguageFt() { return language_ft; }
+
  
  @Override
  public String toString() {
