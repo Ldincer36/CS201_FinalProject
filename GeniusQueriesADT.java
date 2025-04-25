@@ -1,0 +1,48 @@
+package FinalProject;
+
+
+import java.io.IOException;
+
+import java.util.*;
+
+public interface GeniusQueriesADT {
+    /**
+     * Loads the Genius Song dataset from the specified file path.
+     * @param filePath Path to the dataset file (CSV/JSON/XML format)
+     * @return Number of records loaded
+     * @throws IOException If there's an error reading the file
+     */
+    int loadDataset(String filePath) throws IOException;
+
+    /**
+     * Returns all songs (name) that exactly match the artist and year.
+     * @param artist The artist of the song
+     * @param year The year of the song
+     * @return A List of songs (name) matching the criteria
+     */
+    List<String> exactMatchQuery(String artist, int year);
+
+
+    /**
+     * Returns all songs where the year falls within the given range.
+     * @param startYear The lower bound of the range (inclusive)
+     * @param endYear The upper bound of the range (inclusive)
+     * @return A collection of songs matching the criteria
+     */
+    
+     List<GeniusSong> rangeQuery( int startYear, int endYear);
+
+
+    /**
+     * Returns the average value of the views
+     * @param String The tag (genre)
+     * @param startTime The start time of the period (inclusive)
+     * @param endTime of the period (inclusive)
+     * @return The statistic calculated */
+    double averageViewQuery(int startYear, int endYear, String tag);
+
+
+public static final TreeMap<Integer, List<GeniusSong>> songsTreeMap = new TreeMap<>();
+
+ void appendingSong(GeniusSong song);
+}
