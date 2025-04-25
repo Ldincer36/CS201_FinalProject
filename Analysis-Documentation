@@ -22,5 +22,6 @@ much more likely that k is relatively smaller compared to n, so we know that usi
 our dataset). Hence, although the setup for a TreeMap is O(n), while going through the query methods, particularly for a large dataset, a TreeMap will prove to be much more efficient than a simple ArrayList and multiple iterations.
 
 A limitation is that TreeMap can take up higher memory overhead, and compared to a HashMap with O(1) or constant time operations, it's relatively slow. Duplicates 
-currently aren't allowed, so if we wanted to see how many times, it could be a bit problematic. A potential improvement is storing my variables in a new class 
-instead of as Strings.
+currently aren't allowed, so if we wanted to see how many times, it could be a bit problematic. A potential improvement is 
+
+Now I have a class called...
