@@ -16,7 +16,7 @@ I had even considered using a HashSet in order to avoid any duplicates. With thi
 which executes n number of times, and the rest is all constant, such as appending to the end of an ArrayList.
 
 However, while trying to make this as efficient as possible, I came across using TreeMaps. My current implementation involves using a TreeMap, that keeps the 
-keys in their natural order, which can be beneficial for the future. In my TreeMap, the key is the year, and the value is a list of all of the songs that were 
+keys in their natural order, which can be beneficial for the future if we also wanted to sort the data. In my TreeMap, the key is the year, and the value is a list of all of the songs that were 
 released in that year. So for eaxmple, if 4 songs were released in 2010, those four songs would be the value to the key "2010".
 We can break the time complexity apart into two different parts, one is the setup and the other is the actual query method. For the setup of the TreeMap, it would
 be O(n) because there are n number of rows/data points to go through, and the TreeMap has to go through all of the rows, determine if it's already in the list, and
@@ -27,6 +27,8 @@ However, because we will be iterating over the number of years within the range,
 Since we don't know for how many years, we can't determine which is more dominant. However, in such a large dataset, it is 
 much more likely that k is relatively smaller compared to n, so we know that using a TreeMap implementation is much better (especially considering the size of 
 our dataset).
+Hence, although the setup for a TreeMap is O(n), while going through the query methods, particularly for a large dataset, a TreeMap will prove to be much more 
+efficient than a simple ArrayList and multiple iterations.
 
 A limitation is that TreeMap can take up higher memory overhead, and compared to a HashMap with O(1) or constant time operations, it's relatively slow. Duplicates 
 currently aren't allowed, so if we wanted to see how many times, it could be a bit problematic. A potential improvement is storing my variables in a new class 
