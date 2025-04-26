@@ -51,7 +51,13 @@ public interface GeniusQueriesADT {
      * @param startTime The start time of the period (inclusive)
      * @param endTime of the period (inclusive)
      * @return The statistic calculated */
-    double averageViewQuery(int startYear, int endYear, String tag);
+    double averageViewQuery(int startYear, int endYear, String tag){
+         List<String> listofsongs = new ArrayList<>();
+        for (Map.Entry<Integer, List<String>> row  : songsTreeMap.subMap(startYear, true, endYear, true, tag, true).entrySet()) {
+            listofsongs.addAll(row.getValue()); 
+    }
+    
+}
 
 
 
