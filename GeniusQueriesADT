@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 public interface GeniusQueriesADT {
     /**
@@ -17,6 +17,7 @@ public interface GeniusQueriesADT {
      * @return A List of songs (name) matching the criteria
      */
     List<String> exactMatchQuery(String artist, int year);
+            
 
 
     /**
@@ -25,14 +26,36 @@ public interface GeniusQueriesADT {
      * @param endYear The upper bound of the range (inclusive)
      * @return A collection of songs matching the criteria
      */
-    List<String> rangeQuery( int startYear, int endYear);
+    
+    List<String> rangeQuery(int startYear, int endYear);
+
+
+
+
+
+
+
+
 
     /**
      * Returns the average value of the views
-     * @param String The tag (genre)
-     * @param startTime The start time of the period (inclusive)
-     * @param endTime of the period (inclusive)
+     * @param tag The tag (genre)
+     * @param startYear The start time of the period (inclusive)
+     * @param endYear of the period (inclusive)
      * @return The statistic calculated */
     double averageViewQuery(int startYear, int endYear, String tag);
 
+
+
+
+public static final TreeMap<Integer, List<GeniusSong>> songsTreeMap = new TreeMap<>();
+
+
+
+    void appendingSong(GeniusSong song, int year);
+
+    TreeMap<Integer,List<GeniusSong>> getMap();
 }
+
+
+
