@@ -1,0 +1,136 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class GeniusSongQueriesImp implements GeniusQueriesADT {
+
+
+    /**
+     * Loads the Genius Song dataset from the specified file path.
+     *
+     * @param filePath Path to the dataset file (CSV/JSON/XML format)
+     * @return Number of records loaded
+     * @throws IOException If there's an error reading the file
+     */
+    public int loadDataset(String filePath) throws IOException {
+        return 0;
+    }
+
+    @Override
+    public List<String> exactMatchQuery(String artist, int year) {
+        /*
+        List<String> listofsongs = new ArrayList<>();
+        Map<Integer, String> newMap = new HashMap<>(songsHashMap);
+        newMap.keySet().retainAll(artist);
+        newMap.valueSet().retainAll(year);
+
+        List<String> listofsongs = new ArrayList<>();
+        for(Map.Entry<Integer, List<String>> row  : songsHashMap.entrySet().retainAll(year)) {
+            for(Song song : entry.getValue()){
+                if(song.getArtist().equalsIgnoreCase(artist)){
+                    listofsongs.add(song);
+                }
+            }
+    }
+            */
+
+        List<String> listOfSongs = new ArrayList<>();
+
+        for (Map.Entry<Integer, List<GeniusSong>> entry : songsTreeMap.entrySet()) {
+            if (entry.getKey() == year) {
+                for (GeniusSong song : entry.getValue()) {
+                    if (song.getArtist().equalsIgnoreCase(artist)) {
+                        listOfSongs.add(song.getTitle());
+                    }
+                }
+            }
+        }
+
+        return listOfSongs;
+    }
+
+
+    @Override
+    public List<String> rangeQuery(int startYear, int endYear) {
+        List<GeniusSong> listofsongs = new ArrayList<>();
+        for (Map.Entry<Integer, List<GeniusSong>> row : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
+            listofsongs.addAll(row.getValue());
+        }
+        List<String> titles = new ArrayList<>();
+        for (GeniusSong song : listofsongs) {
+            titles.add(song.getTitle());
+        }
+        return titles;
+
+    }
+
+    @Override
+    public double averageViewQuery(int startYear, int endYear, String tag) {
+        double totalViews = 0;
+        int count = 0;
+        List<String> listofsongs = new ArrayList<>();
+        for (Map.Entry<Integer, List<GeniusSong>> row : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
+            for (GeniusSong song : row.getValue()) {
+                if (song.getTag().equalsIgnoreCase(tag)) {
+                    totalViews += song.getViews();
+                    count++;
+                }
+            }
+        }
+        if (count == 0) {
+            return 0.0;
+        }
+        return (double) totalViews / count;
+    }
+
+    @Override
+    public void appendingSong(GeniusSong song, int year) {
+        songsTreeMap.putIfAbsent(year, new ArrayList<>());
+        songsTreeMap.get(year).add(song);
+    }
+
+
+    @Override
+    public TreeMap<Integer, List<GeniusSong>> getMap() {
+        String filename = "blank";
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            boolean firstLine = true;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {  // Skip the header
+                    firstLine = false;
+                    continue;
+                }
+                String[] parts = line.split(","); // Split into 3 parts (year, title, artist)
+
+
+                String title = parts[0].trim();
+                String tag = parts[1].trim();
+                String artist = parts[2].trim();
+                int year = Integer.parseInt(parts[3].trim());
+                int views = Integer.parseInt(parts[4].trim());
+                String lyrics = parts[5].trim();
+                String id = parts[6].trim();
+                String language_c = parts[7].trim();
+                String language_2 = parts[8].trim();
+
+                GeniusSong song = new GeniusSong(title, tag, artist, year, views);
+
+                // Now add the song into your map
+                appendingSong(song, year);  // or appendingSong(song, year);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return songsTreeMap;
+    }
+}
+
+
+
+
