@@ -1,8 +1,5 @@
 package FinalProject;
-
-
 import java.io.IOException;
-
 import java.util.*;
 
 public interface GeniusQueriesADT {
@@ -20,7 +17,38 @@ public interface GeniusQueriesADT {
      * @param year The year of the song
      * @return A List of songs (name) matching the criteria
      */
-    List<String> exactMatchQuery(String artist, int year);
+    public default List<String> exactMatchQuery(String artist, int year){
+        /*
+        List<String> listofsongs = new ArrayList<>();
+        Map<Integer, String> newMap = new HashMap<>(songsHashMap);
+        newMap.keySet().retainAll(artist);
+        newMap.valueSet().retainAll(year); 
+        
+        List<String> listofsongs = new ArrayList<>();
+        for(Map.Entry<Integer, List<String>> row  : songsHashMap.entrySet().retainAll(year)) {
+            for(Song song : entry.getValue()){
+                if(song.getArtist().equalsIgnoreCase(artist)){
+                    listofsongs.add(song);
+                }
+            }
+    }
+            */
+           
+        List<String> listOfSongs = new ArrayList<>();
+    
+        for (Map.Entry<Integer, List<GeniusSong>> entry : songsHashMap.entrySet()) {
+            if (entry.getKey() == year) {
+                for (GeniusSong song : entry.getValue()) {
+                    if (song.getArtist().equalsIgnoreCase(artist)) {
+                        listOfSongs.add(song.getTitle()); 
+                    }
+                }
+            }
+        }
+    
+        return listOfSongs;
+            }
+            
 
 
     /**
@@ -30,13 +58,13 @@ public interface GeniusQueriesADT {
      * @return A collection of songs matching the criteria
      */
     
-    default List<String> rangeQuery( int startYear, int endYear){
+    public default List<String> rangeQuery(int startYear, int endYear){
 
- List<String> listofsongs = new ArrayList<>();
-    for (Map.Entry<Integer, List<String>> row  : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
-        listofsongs.addAll(row.getValue()); 
-    }
-    return listofsongs;
+        List<String> listofsongs = new ArrayList<>();
+        for (Map.Entry<Integer, List<String>> row  : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
+            listofsongs.addAll(row.getValue()); 
+        }
+        return listofsongs;
 
 }
 
@@ -51,22 +79,22 @@ public interface GeniusQueriesADT {
      * @param startTime The start time of the period (inclusive)
      * @param endTime of the period (inclusive)
      * @return The statistic calculated */
-    double averageViewQuery(int startYear, int endYear, String tag){
+    public default double averageViewQuery(int startYear, int endYear, String tag){
         int totalViews = 0;
         int count = 0;
-         List<String> listofsongs = new ArrayList<>();
-        for (Map.Entry<Integer, List<String>> row  : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
+        List<String> listofsongs = new ArrayList<>();
+        for(Map.Entry<Integer, List<String>> row  : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
             for(Song song : entry.getValue()){
-                if(song.getTag().equalsIgnoreCase(tag){
+                if(song.getTag().equalsIgnoreCase(tag)){
                     totalViews += song.getViews();
                     count++;
                 }
             }
     }
-    if(count == 0){
-        return 0.0;
-    }
-    return totalViews/count;
+        if(count == 0){
+            return 0.0;
+        }
+        return totalViews/count;
 }
 
 
@@ -74,9 +102,20 @@ public interface GeniusQueriesADT {
 
 
 public static final TreeMap<Integer, List<String>> songsTreeMap = new TreeMap<>();
+public static final HashMap<Integer, List<GeniusSong>> songsHashMap = new HashMap<>();
 
- public default void appendingSong(String songName, int year) {
-    songsTreeMap.putIfAbsent(year, new ArrayList<>());
-    songsTreeMap.get(year).add(songName);
+
+    public default void appendingSong(String songName, int year) {
+        songsTreeMap.putIfAbsent(year, new ArrayList<>());
+        songsTreeMap.get(year).add(songName);
+        
 }
+    public default void appendingSongsHash(GeniusSong song, int year){
+        songsHashMap.putIfAbsent(year, new ArrayList<>());
+        songsHashMap.get(year).add(song);
+    }
 }
+
+
+
+
