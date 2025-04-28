@@ -1,0 +1,103 @@
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.*;
+
+class GeniusSongQueriesImpTest {
+
+    private GeniusSongQueriesImp queries;
+
+    @BeforeEach
+    void setUp() {
+        queries = new GeniusSongQueriesImp();
+    }
+
+    @Test
+    void testAppendingSong() {
+        GeniusSong song1 = new GeniusSong("Song A", "Rock", 2000, "Artist X", 100);
+        GeniusSong song2 = new GeniusSong("Song B", "Pop", 2000, "Artist Y", 200);
+
+        queries.appendingSong(song1, 2000);
+        queries.appendingSong(song2, 2000);
+
+        TreeMap<Integer, List<GeniusSong>> map = queries.getMap();
+        assertTrue(map.containsKey(2000));
+        assertEquals(2, map.get(2000).size());
+        assertEquals("Song A", map.get(2000).get(0).getTitle());
+        assertEquals("Song B", map.get(2000).get(1).getTitle());
+    }
+
+    @Test
+    void testExactMatchQuery() {
+        GeniusSong song1 = new GeniusSong("Song A", "Rock", 2000, "Artist X", 100);
+        GeniusSong song2 = new GeniusSong("Song B", "Rock", 2000, "Artist X", 150);
+        GeniusSong song3 = new GeniusSong("Song C", "Pop", 2001, "Artist Y", 200);
+
+        queries.appendingSong(song1, 2000);
+        queries.appendingSong(song2, 2000);
+        queries.appendingSong(song3, 2001);
+
+        List<String> result = queries.exactMatchQuery("Artist X", 2000);
+        assertEquals(2, result.size());
+        assertTrue(result.contains("Song A"));
+        assertTrue(result.contains("Song B"));
+    }
+
+    @Test
+    void testRangeQuery() {
+        GeniusSong song1 = new GeniusSong("Song A", "Rock", 2000, "Artist X", 100);
+        GeniusSong song2 = new GeniusSong("Song B", "Rock", 2001, "Artist X", 150);
+        GeniusSong song3 = new GeniusSong("Song C", "Pop", 2002, "Artist Y", 200);
+        GeniusSong song4 = new GeniusSong("Song D", "Jazz", 2003, "Artist Z", 250);
+
+        queries.appendingSong(song1, 2000);
+        queries.appendingSong(song2, 2001);
+        queries.appendingSong(song3, 2002);
+        queries.appendingSong(song4, 2003);
+
+        List<String> result = queries.rangeQuery(2000, 2002);
+        assertEquals(3, result.size());
+        assertTrue(result.contains("Song A"));
+        assertTrue(result.contains("Song B"));
+        assertTrue(result.contains("Song C"));
+    }
+
+    @Test
+    void testAverageViewQuery() {
+        GeniusSong song1 = new GeniusSong("Song A", "Rock", "Artist X", 2000 , 100);
+        GeniusSong song2 = new GeniusSong("Song B", "Rock", "Artist X",2001,  200);
+        GeniusSong song3 = new GeniusSong("Song C", "Rock", "Artist Y",2002 , 300);
+        GeniusSong song4 = new GeniusSong("Song D", "Pop", "Artist Z",2003, 400);
+
+        queries.appendingSong(song1, 2000);
+        queries.appendingSong(song2, 2001);
+        queries.appendingSong(song3, 2002);
+        queries.appendingSong(song4, 2003);
+
+        double averageViews = queries.averageViewQuery(2000, 2002, "Rock");
+        assertEquals(200.0, averageViews, 0.01);  // Expected (100+200+300) / 3 = 200
+    }
+
+    @Test
+    void testAverageViewQueryWithNoMatches() {
+        double result = queries.averageViewQuery(2010, 2015, "Classical");
+        assertEquals(0.0, result);
+    }
+
+    @Test
+    void testLoadDataset() {
+        // Since the method is not implemented, expect it to return 0
+        try {
+            int records = queries.loadDataset("somefile.csv");
+            assertEquals(0, records);
+        } catch (IOException e) {
+            fail("IOException should not be thrown for a stub method");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
