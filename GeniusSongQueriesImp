@@ -23,25 +23,10 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
 
     @Override
     public List<String> exactMatchQuery(String artist, int year) {
-        /*
-        List<String> listofsongs = new ArrayList<>();
-        Map<Integer, String> newMap = new HashMap<>(songsHashMap);
-        newMap.keySet().retainAll(artist);
-        newMap.valueSet().retainAll(year);
-
-        List<String> listofsongs = new ArrayList<>();
-        for(Map.Entry<Integer, List<String>> row  : songsHashMap.entrySet().retainAll(year)) {
-            for(Song song : entry.getValue()){
-                if(song.getArtist().equalsIgnoreCase(artist)){
-                    listofsongs.add(song);
-                }
-            }
-    }
-            */
 
         List<String> listOfSongs = new ArrayList<>();
 
-        for (Map.Entry<Integer, List<GeniusSong>> entry : songsTreeMap.entrySet()) {
+        for (Map.Entry<Integer, List<GeniusSong>> entry : songsHashMap.entrySet()) {
             if (entry.getKey() == year) {
                 for (GeniusSong song : entry.getValue()) {
                     if (song.getArtist().equalsIgnoreCase(artist)) {
@@ -91,11 +76,13 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
     public void appendingSong(GeniusSong song, int year) {
         songsTreeMap.putIfAbsent(year, new ArrayList<>());
         songsTreeMap.get(year).add(song);
+        songsHashMap.putIfAbsent(year, new ArrayList<>());
+        songsHashMap.get(year).add(song);
     }
 
 
     @Override
-    public TreeMap<Integer, List<GeniusSong>> getMap() {
+    public HashMap<Integer, List<GeniusSong>> getHashMap() {
         String filename = "blank";
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -126,7 +113,7 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return songsTreeMap;
+        return songsHashMap;   //also updates Tree Map
     }
 }
 
