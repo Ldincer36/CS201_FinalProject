@@ -24,10 +24,11 @@ public interface GeniusQueriesADT {
      * Returns all songs where the year falls within the given range.
      * @param startYear The lower bound of the range (inclusive)
      * @param endYear The upper bound of the range (inclusive)
+     * @param language which is the language_cld3
      * @return A collection of songs matching the criteria
      */
     
-    List<String> rangeQuery(int startYear, int endYear);
+    List<String> rangeQuery(int startYear, int endYear, String language);
 
 
 
