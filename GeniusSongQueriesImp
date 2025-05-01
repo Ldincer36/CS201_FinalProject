@@ -43,7 +43,7 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
         }
         List<String> titles = new ArrayList<>();
         for (GeniusSong song : listofsongs) {
-            if (song.language_cld3.equalsIgnoreCase(language_cld3){
+            if (song.getLanguageCld3.equalsIgnoreCase(language){
             titles.add(song.getTitle());
         }
 }
