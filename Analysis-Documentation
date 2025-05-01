@@ -6,8 +6,11 @@ considered
 ● Discussion of limitations and potential improvements
 
 
+Exact Match Query: 
+The Exact Match Query method works by implementing the data in terms of a HashMap. Initially, I was debating between using a HashMap and a TreeMap, but a Hashmap has a lower average time complexity O(1) vs O(logn) for TreeMaps and a lower memory overhead. While the rest of the methods in this classed using TreeMap, that is because RangeQuery and averageViewQuery, relied on finding a subset or range of data. The Exact Match query
+doesn't require a range, and thus doesn't require and ordered data set, making Hashmap and unordered dataset with faster lookup more effective. This method  works by first making a list of all of the songs under a certain year, using the.get() method on the hashmap, which is O(1). Next the for loop runs through those songs and sees if their artists are the same, this for loop has a time complexity of O(m), m being the number of  items in the songsYear list (or the amount of songs that were released that year). This means the total time complexity is O(m), which is better than what it would have been with Hashmap, where the .get() method would have been O(logn) instead of constant, meaning the total time complexity would have been O(logn+ m). Overall, a limitation of this method using Hashmap may be that the other methods in the class require TreeMap, so we must create both data structures instead of just one.  
 
-Range Query:
+Range Query:            
 
 Originally, I was planning on using a simple array list and for loops to search through all of the data and reutrn a list of data that fits within our range. 
 So for example, I started creating a new ArrayList called newList, and then had a for loop where for each row in the database, if the 4th column of data, or data[3] was between the start and end year (inclusive), data[3] would be added to the newlist. I had even considered using a HashSet in order to avoid any duplicates. With this execution, the time complexity would have been O(n) because there is a for loop which executes n number of times, and the rest is all constant, such as appending to the end of an ArrayList.
