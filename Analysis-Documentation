@@ -31,4 +31,4 @@ averageViewQuery:
 In class, using Binary Search Trees for range queries was stressed. Therefore, because averageViewQuery must get a range of values and find the average value of the views within that range, I decided to use a TreeMap, which uses a binary search tree.
 I considered potentially using a linked data structure, such as an ArrayList or linked list. I quickly ruled out using a linked list when I considered the runtime complexty, which would be O(n) to find only 1 element. While I could have used an ArrayList and a for loop, that option did not seem the best option because the runtime of using a for loop to get all the necessary values from my ArrayList would be O(n).
 
-Therefore, I used a TreeMap to store my data. The treemap keeps the keys in their natural order. The keys are 
+Therefore, I used a TreeMap to store my data. The treemap keeps the keys in their natural order. The keys are the year and the values are lists of all the songs realeased during that year.
