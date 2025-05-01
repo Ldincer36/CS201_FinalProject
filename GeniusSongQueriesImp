@@ -73,7 +73,6 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
     public double averageViewQuery(int startYear, int endYear, String tag) {
         double totalViews = 0;
         int count = 0;
-        List<String> listofsongs = new ArrayList<>();
         for (Map.Entry<Integer, List<GeniusSong>> row : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
             for (GeniusSong song : row.getValue()) {
                 if (song.getTag().equalsIgnoreCase(tag)) {
