@@ -25,31 +25,28 @@ public class GeniusSongQueriesImp implements GeniusQueriesADT {
     public List<String> exactMatchQuery(String artist, int year) {
 
         List<String> listOfSongs = new ArrayList<>();
-
-        for (Map.Entry<Integer, List<GeniusSong>> entry : songsHashMap.entrySet()) {
-            if (entry.getKey() == year) {
-                for (GeniusSong song : entry.getValue()) {
-                    if (song.getArtist().equalsIgnoreCase(artist)) {
-                        listOfSongs.add(song.getTitle());
+        List<GeniusSong> songsYear = songsHashMap.get(year);
+        for (GeniusSong song : entry.getValue()) {
+            if (song.getArtist().equalsIgnoreCase(artist)) {
+                listOfSongs.add(song.getTitle());
                     }
                 }
-            }
-        }
-
         return listOfSongs;
     }
 
 
     @Override
-    public List<String> rangeQuery(int startYear, int endYear) {
+    public List<String> rangeQuery(int startYear, int endYear, String language) {
         List<GeniusSong> listofsongs = new ArrayList<>();
         for (Map.Entry<Integer, List<GeniusSong>> row : songsTreeMap.subMap(startYear, true, endYear, true).entrySet()) {
             listofsongs.addAll(row.getValue());
         }
         List<String> titles = new ArrayList<>();
         for (GeniusSong song : listofsongs) {
+            if (song.language_cld3.equalsIgnoreCase(language_cld3){
             titles.add(song.getTitle());
         }
+}
         return titles;
 
     }
