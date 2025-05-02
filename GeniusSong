@@ -36,21 +36,5 @@ public static class GeniusSong {
  public int getLanguageCld3() { return language_cld3; }
  public double getLanguageFt() { return language_ft; }
 
- 
- @Override
- public String toString() {
- return "TaxiTrip{" +
- "pickupDatetime='" + pickupDatetime + '\'' +
- ", dropoffDatetime='" + dropoffDatetime + '\'' +
- ", passengerCount=" + passengerCount +
- ", tripDistance=" + tripDistance +
- ", fareAmount=" + fareAmount +
- ", paymentType='" + paymentType + '\'' +
- ", pickupLocationId=" + pickupLocationId +
- ", dropoffLocationId=" + dropoffLocationId +
- ", tipAmount=" + tipAmount +
- ", totalAmount=" + totalAmount +
- '}';
- }
  }
  
